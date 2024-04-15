@@ -49,12 +49,17 @@ X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y
 
 # creating a regression model 
 model = sklearn.linear_model.LinearRegression() 
-# fitting the model 
-model.fit(X_train,y_train)
-# making predictions 
-predictions = model.predict(X_test) 
-# model evaluation 
-print('mean_squared_error : ', sklearn.metrics.mean_squared_error(y_test, predictions))
+for epoch in range(0, 20):
+    # fitting the model 
+    model.fit(X_train,y_train)
+    # making predictions 
+    predictions = model.predict(X_test) 
+    # model evaluation 
+    print('epoch ', str(epoch), '\tmean_squared_error : ', sklearn.metrics.mean_squared_error(y_test, predictions))
+
+
+
+
 tkeys = y_test.keys()
 xax = [i for i in range(len(tkeys))]
 yax = [y_test[tkeys[i]] - predictions[i] for i in xax]
