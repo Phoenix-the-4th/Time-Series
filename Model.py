@@ -55,7 +55,7 @@ for k in [3, 5, 10, 20]:
     # making predictions 
     predictions = model.predict(X_test) 
     # model evaluation 
-    print(str(k), '\tmean_squared_error : ', sklearn.metrics.mean_squared_error(y_test, predictions))
+    print(str(k), '\mean_absolute_percentage_error : ', sklearn.metrics.mean_absolute_percentage_error(y_test, predictions))
 
 
 
