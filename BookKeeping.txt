@@ -1,2 +1,6 @@
 Problem Statement:
-Testing
+to test if Neural Networks work better than than other hypothesis classes such as linear regression and decision trees for prediction of seasonal time series data like stock prices.
+
+Methodology:
+Here we are using a dataset of share prices of Voltas, a company specialized in cooling and home appliances. This particular dataset was chosen as a seasonal trend is expected in the share prices from qualitative analysis, expecting prices to be higher during the spring-summer season. The dataset contains daily values of 4 different metrics of share price across 5 years.
+We are using RMSE as the metric to evaluate the models. Other options for the evaluation metric was MAE which was discarded because RMSE takes into account the magnitude of error (https://vitalflux.com/performance-metrics-for-time-series-forecasting-models/#:~:text=Root%20Mean%20Squared%20Error%20%28RMSE%29%20is%20the%20most,actual%20values%20and%20the%20predictions%20of%20the%20model.) and has other mathematically desirable properties.
