@@ -16,7 +16,7 @@ import sklearn.metrics
 
 
 # Read the CSV file into a pandas DataFrame
-data = pd.read_csv('trial.csv')
+data = pd.read_csv('full.csv')
 
 # Now you can work with the data using pandas functions
 data['Date'] = (pd.to_datetime(data['Date']))
@@ -34,28 +34,28 @@ print(data.head())  # Display the first few rows
 # plt.show()
 
 
-print("modelling")
-k = 3
-# creating feature variables 
-kset = data['Avg'][0:k]
-print('Here', str(len(data['Avg'])))
-X = []
-for i in range(0, len(data['Avg'])-k):
-    X.append(data['Avg'][i:i+k])
-y = data['Avg'].shift(-k).dropna()
+for k in [3, 5, 10, 20]:
+    # creating feature variables 
+    fullset = data['Avg'].dropna()
+    df = {i: list(fullset.shift(-i))[:-k] for i in range(k)}
 
-# creating train and test sets 
-X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size=0.3, random_state=101)
+    X = pd.DataFrame(df)
+    # print(X)
 
-# creating a regression model 
-model = sklearn.linear_model.LinearRegression() 
-for epoch in range(0, 20):
+
+    # creating train and test sets 
+    X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, fullset.shift(-k).dropna(), test_size=0.3, random_state=101)
+
+    # [print(X_train[i]) for i in X_train.keys()]
+
+    # creating a regression model 
+    model = sklearn.linear_model.LinearRegression()
     # fitting the model 
     model.fit(X_train,y_train)
     # making predictions 
     predictions = model.predict(X_test) 
     # model evaluation 
-    print('epoch ', str(epoch), '\tmean_squared_error : ', sklearn.metrics.mean_squared_error(y_test, predictions))
+    print(str(k), '\tmean_squared_error : ', sklearn.metrics.mean_squared_error(y_test, predictions))
 
 
 
